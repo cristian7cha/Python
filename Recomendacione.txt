@@ -1,0 +1,77 @@
+Política de la cuenta:
+Política de contraseñas:
+'Hacer cumplir el historial de contraseñas' esté configurado en '24 o más contraseñas'
+La 'Edad máxima de la contraseña' esté configurada en '365 días o menos, pero no 0'
+'Edad mínima de la contraseña' esté establecida en '1 o más días'
+la 'Longitud mínima de la contraseña' esté configurada en '14 o más carácter(es)'
+'La contraseña debe cumplir con los requisitos de complejidad' esté configurado en 'Habilitado'
+'Relajar los límites mínimos de longitud de la contraseña' esté configurado en 'Habilitado'
+'Almacenar contraseñas usando encriptación reversible' esté configurado en 'Deshabilitado'
+
+Política de bloqueo de cuenta:
+La 'Duración del bloqueo de la cuenta' esté establecida en '15 minutos o más'
+el 'Umbral de bloqueo de cuenta' esté establecido en '5 o menos intentos de inicio de sesión no válidos, pero no 0'
+'Restablecer contador de bloqueo de cuenta después de' esté configurado en '15 o más minuto(s)'
+
+
+Políticas locales:
+Cesión de derechos de usuario:
+'Acceder al Administrador de credenciales como llamante de confianza' esté configurado en 'Nadie'
+'Actuar como parte del sistema operativo' esté establecido en 'Nadie´
+'Ajustar las cuotas de memoria para un proceso' esté establecido en 'Administradores, SERVICIO LOCAL, SERVICIO DE RED'
+'Copia de seguridad de archivos y directorios' esté establecido en 'Administradores'
+'Cambiar la hora del sistema' esté configurado en 'Administradores, SERVICIO LOCAL'
+'Crear un archivo de paginación' esté establecido en 'Administradores'
+'Crear un objeto token' esté establecido en 'Nadie'
+'Crear objetos compartidos permanentes' esté establecido en 'Nadie´
+'Programas de depuración' esté establecido en 'Administradores'
+
+
+
+Firewall de Windows Defender con seguridad avanzada:
+Perfil de dominio:
+'Firewall de Windows: Dominio: Estado de firewall' esté configurado en 'Activado (recomendado)'
+'Firewall de Windows: Dominio: Conexiones entrantes' esté establecido en 'Bloquear (predeterminado)'
+
+
+
+Plantillas Administrativas (Ordenador):
+Protección del dispositivo:
+'Activar seguridad basada en virtualización' esté configurado en 'Habilitado'
+
+Inicio de sesión:
+'Bloquear al usuario para que no muestre los detalles de la cuenta al iniciar sesión' esté configurado en 'Habilitado'
+'Desactivar las notificaciones de aplicaciones en la pantalla de bloqueo' esté configurado en 'Habilitado'
+
+Ajustes de suspensión:
+'Requerir una contraseña cuando una computadora se active (con batería)' esté configurado en 'Habilitado'
+'Requerir una contraseña cuando una computadora se active (conectada)' esté configurado en 'Habilitado'
+
+Protección de red:
+'Evitar que los usuarios y las aplicaciones accedan a sitios web peligrosos' esté configurado en 'Habilitado: Bloquear'
+
+Protección en tiempo real:
+'Escanear todos los archivos y archivos adjuntos descargados' esté configurado en 'Habilitado'
+'Desactivar la protección en tiempo real' esté configurado en 'Deshabilitado´
+'Activar monitoreo de comportamiento' esté configurado en 'Habilitado´
+'Activar análisis de secuencias de comandos' esté establecido en 'Habilitado'
+
+Escanear:
+'Escanear unidades extraíbles' esté configurado en 'Habilitado'
+'Activar análisis de correo electrónico' esté configurado como 'Habilitado'
+
+Amenazas:
+'Configurar detección de aplicaciones potencialmente no deseadas' esté establecido en 'Habilitado: Bloquear'
+'Desactivar Microsoft Defender AntiVirus' esté configurado en 'Deshabilitado'
+
+Explorador:
+'Configurar SmartScreen de Windows Defender' esté establecido en 'Habilitado: Advertir y evitar la omisión'
+
+Microsoft Edge:
+'Configurar SmartScreen de Windows Defender' esté establecido en 'Habilitado'
+'Evitar omitir las indicaciones de SmartScreen de Windows Defender para sitios' esté configurado en 'Habilitado'
+
+Actualización de Windows:
+'Configurar actualizaciones automáticas' esté establecido en 'Habilitado´
+'Configurar actualizaciones automáticas: día de instalación programada' esté establecido en '0 - Todos los días'
+
