@@ -1,12 +1,11 @@
-from tkinter import*
-from PIL import ImageTk, Image
+from tkinter import *
+from ejemplo2 import MultiListbox
 
-ventana = Tk()
-ventana.geometry("700x600+0+0")
-ventana.config(bg = "red")
-ventana.title("Ejemplo de imagenes")
-#imagenL = PhotoImage(file = "img.jpg")
-imagenL = ImageTk.PhotoImage(Image.open('1.jpg'))
-lblImagen = Label(ventana, image = imagenL).place(x = 50,y = 50)
-
-ventana.mainloop()
+tk = Tk()
+Label(tk, text='Prueba clase MLb').pack()
+mlb = MultiListbox(tk, (('Asunto', 40), ('Remite', 20), ('Fecha', 10)))
+for i in range(100):
+    mlb.insert(END, ('Mensaje importante: %d' % (i+1), 'Avelino Cascarrio', '29/10/%04d' % (1900+i)))
+ 
+mlb.pack(expand=YES,fill=BOTH)
+tk.mainloop()
