@@ -23,10 +23,7 @@ def informacion(ev):
     Label(newWindow, image = imagenL).pack()
     newWindow.mainloop()
 
-        
-    
 def Auditar():
-    
     def color():
         r = random.randint(0, 1)
         if r == 1 : 
@@ -34,11 +31,9 @@ def Auditar():
         else: x= "red"
         return x
 
-    lista_recomendaciones.itemconfigure(0, bg=color() , fg="#fff")
-    lista_recomendaciones.itemconfigure(1, bg=color() , fg="#fff")
-    lista_recomendaciones.itemconfigure(2, bg=color() , fg="#fff")
-    lista_recomendaciones.itemconfigure(3, bg=color() , fg="#fff")
-    lista_recomendaciones.itemconfigure(4, bg=color() , fg="#fff")
+    for l in range(40):
+        lista_recomendaciones.itemconfigure(l, bg=color() , fg="#fff")
+
 
 ventana=Tk()
 
@@ -48,18 +43,24 @@ ventana.resizable(0,0) #(0,0) no se puede redireccionar la ventana
 
 ventana.iconbitmap("imagenes/Logo.ico")
 ventana.geometry("720x640") #tamaño de ventana
-ventana.config(bg="black") #color de fondo
+ventana.config(bg="white") #color de fondo
+logo = ImageTk.PhotoImage(Image.open('imagenes/fondo.jpg'))
+background = Label(image=logo)
+background.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
-btn = Button(ventana, text='Auditar', command=Auditar)
-btn.place(x=300, y=50)
+btn = Button(ventana, text='Auditar   ', command=Auditar, anchor="center", bitmap="hourglass", compound="right").pack(pady=30)
 
-lista_recomendaciones=Listbox(ventana,width=90)
+lista_recomendaciones=Listbox(ventana,width=85,height=20)
+
 lista_recomendaciones.bind('<Double-Button-1>', informacion)
-lista_recomendaciones.insert(0,"'Hacer cumplir el historial de contraseñas' esté configurado en '24 o más contraseñas'")
-lista_recomendaciones.insert(1,"La 'Edad máxima de la contraseña' esté configurada en '365 días o menos, pero no 0'")
-lista_recomendaciones.insert(2,"'Edad mínima de la contraseña' esté establecida en '1 o más días'")
-lista_recomendaciones.insert(3,"la 'Longitud mínima de la contraseña' esté configurada en '14 o más carácter(es)'")
-lista_recomendaciones.insert(4,"'La contraseña debe cumplir con los requisitos de complejidad' esté configurado en 'Habilitado'")
+
+with open("Recomendacione.txt") as procfile:
+    for line in procfile:
+        a=0
+        lista_recomendaciones.insert(a,line.strip())
+        a=a+1
+
+
 lista_recomendaciones.place(x=50,y=80)
 
 
