@@ -2,23 +2,16 @@ from tkinter import *
 import tkinter,random
 from PIL import ImageTk, Image
 
+
 def informacion(ev):
     newWindow = tkinter.Toplevel(ventana)
     listbox = ev.widget
     index = listbox.curselection()
     value = listbox.get(index[0])
     Label(newWindow, text=value).pack()
+    indexString = str(index[0])
 
-    if index[0] == 0:
-        imagenL = ImageTk.PhotoImage(Image.open('imagenes/0.jpg'))
-    elif index[0] == 1:
-        imagenL = ImageTk.PhotoImage(Image.open('imagenes/1.jpg'))
-    elif index[0] == 2:
-        imagenL = ImageTk.PhotoImage(Image.open('imagenes/0.jpg'))
-    elif index[0] == 3:
-        imagenL = ImageTk.PhotoImage(Image.open('imagenes/1.jpg'))
-    else:
-        imagenL = ImageTk.PhotoImage(Image.open('imagenes/0.jpg'))
+    imagenL = ImageTk.PhotoImage(Image.open('imagenes/'+indexString+'.jpg')) #selecciono la imagen de acuerdo al index 
 
     Label(newWindow, image = imagenL).pack()
     newWindow.mainloop()
@@ -56,12 +49,11 @@ lista_recomendaciones.bind('<Double-Button-1>', informacion)
 
 with open("Recomendacione.txt") as procfile:
     for line in procfile:
-        a=0
+        a=39
         lista_recomendaciones.insert(a,line.strip())
-        a=a+1
+        a=a-1
 
 
 lista_recomendaciones.place(x=50,y=80)
-
 
 ventana.mainloop()

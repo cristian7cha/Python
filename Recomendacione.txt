@@ -1,4 +1,4 @@
-'Hacer cumplir el historial de contraseñas' esté configurado en '24 o más contraseñas'
+'Hacer cumplir el historial de contrasenas' este configurado en '24 o más contraseñas'
 La 'Edad máxima de la contraseña' esté configurada en '365 días o menos, pero no 0'
 'Edad mínima de la contraseña' esté establecida en '1 o más días'
 la 'Longitud mínima de la contraseña' esté configurada en '14 o más carácter(es)'
