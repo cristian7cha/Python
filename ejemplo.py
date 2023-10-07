@@ -23,7 +23,10 @@ def Auditar():
         else: icon ="X"
         return icon
     for l in range(40):
-        tree.insert('', 'end', text=""+str(l)+"",values=(''+listR[l]+'',''+funcion()+''))
+        n=funcion()
+        tree.insert('', 'end', text=""+str(l)+"",values=(''+listR[l]+'',''+n+''),tags=(''+n+''))
+    tree.tag_configure('✔', background='#88dc65')
+    tree.tag_configure('X', background='#f0394d')
 
 
 ventana=Tk()
@@ -35,6 +38,8 @@ ventana.config(bg="white") #color de fondo
 fondo = ImageTk.PhotoImage(Image.open('imagenes/fondo.jpg'))
 background = Label(image=fondo)
 background.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+logo = ImageTk.PhotoImage(Image.open('imagenes/logoL.png'))
+logol = Label(image=logo).pack(pady=10)
 
 btn = Button(ventana, text='Auditar   ', command=Auditar, anchor="center", bitmap="hourglass", compound="right").pack(pady=30)
 

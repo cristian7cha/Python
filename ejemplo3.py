@@ -1,21 +1,22 @@
-import tkinter
-from tkinter import messagebox as MessageBox
+import subprocess
 
-top = tkinter.Tk()
-#flat, groove, raised, ridge, solid o sunken
+def obtener_configuracion_complejidad_contraseña():
+    try:
+        # Ejecutar el comando secedit para consultar la configuración de seguridad
+        resultado = subprocess.check_output("secedit /export /cfg C:\\temp\\security.cfg", shell=True)
+        
+        # Leer el archivo de configuración exportado
+        with open('C:\\temp\\security.cfg', 'r') as archivo_cfg:
+            lineas = archivo_cfg.readlines()
+            for linea in lineas:
+                if "PasswordComplexity" in linea:
+                    return linea.strip()
+        
+        return "No se encontró la configuración de contraseña de complejidad."
 
-def helloCallBack():
-   MessageBox.showinfo( "Hello Python", "Hello World")
+    except subprocess.CalledProcessError as e:
+        return f"Error al obtener la configuración: {e}"
 
-A = tkinter.Button(top, text ="Hello", command = helloCallBack, relief = "flat").pack()
-
-B = tkinter.Button(top, text ="Hello", command = helloCallBack, relief = "groove").pack()
-
-C = tkinter.Button(top, text ="Hello", command = helloCallBack, relief = "raised").pack()
-
-D = tkinter.Button(top, text ="Hello", command = helloCallBack, relief = "ridge").pack()
-
-E = tkinter.Button(top, text ="Hello", command = helloCallBack, relief = "solid").pack()
-
-F = tkinter.Button(top, text ="Hello", command = helloCallBack, relief = "sunken").pack()
-top.mainloop()
+if __name__ == "__main__":
+    configuracion = obtener_configuracion_complejidad_contraseña()
+    print(configuracion)
