@@ -6,11 +6,11 @@ from PIL import ImageTk, Image
 def obtener_valor_historial_contraseñas(variable_a_comparar,valor_a_comparar):
     try:
         # Ejecutar el comando secedit para consultar la configuración de seguridad y esto  guarda el archivo security.cfg en la carpeta designada
-        resultado = subprocess.check_output("C:\\Windows\\System32\\secedit /export /cfg C:\\Users\\crist\\OneDrive\\Desktop\\TG\\Python\\security.cfg", shell=True)
+        resultado = subprocess.check_output("C:\\Windows\\System32\\secedit /export /cfg C:\\Windows\\Temp\\security.cfg", shell=True)
         
         # Leer el archivo de configuración exportado
-        archivo_cfg = "security.cfg"
-        archivo_txt = "security.txt"
+        archivo_cfg = "C:\\Windows\\Temp\\security.cfg"
+        archivo_txt = "C:\\Windows\\Temp\\security.txt"
         
         with open(archivo_cfg, 'r') as entrada:
             with open(archivo_txt, 'w') as salida:

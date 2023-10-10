@@ -1,8 +1,0 @@
-Unicode = yes
-MinimumPasswordAge = 1
-MaximumPasswordAge = 100
-MinimumPasswordLength = 13
-PasswordComplexity = 1
-PasswordHistorySize = 23
-LockoutBadCount = 1
-ResetLockoutCount = 14
