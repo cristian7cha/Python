@@ -10,7 +10,7 @@ def obtener_valor_historial_contraseñas(variable_a_comparar,valor_a_comparar):
         
         # Leer el archivo de configuración exportado
         archivo_cfg = "C:\\Windows\\Temp\\security.cfg"
-        archivo_txt = "C:\\Windows\\Temp\\security.txt"
+        archivo_txt = "archivos/security.txt"
         
         with open(archivo_cfg, 'r') as entrada:
             with open(archivo_txt, 'w') as salida:
@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
     listR=[]
 
-    with open("recomendaciones.txt", 'r', encoding='utf-8') as procfile:
+    with open("archivos/recomendaciones.txt", 'r', encoding='utf-8') as procfile:
         for line in procfile:
             listR.append(line)
            

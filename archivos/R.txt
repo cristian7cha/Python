@@ -1,0 +1,57 @@
+1 exigir historial de contraseñas: 24 o mas contraseñas: PasswordHistorySize
+2 vigencia maxima de la contraseña: 365 o menos pero no 0 dias: MaximumPasswordAge
+3 vigencia minima de la contraseña: 1 o mas dias: MaximumPasswordAge
+4 longitud miinima de contraseña: 14 o mas caracteres: MinimumPasswordLength
+5 la contraseña debe cumplir los requisitos de complejidad: habilitado: PasswordComplexity
+
+6 reducir los limites de longitud minima de la contraseña: habilitado:  "SYSTEM\CurrentControlSet\Control\SAM" RelaxMinimumPasswordLengthLimits
+
+7 almacenar contraseñas con cifrado reversible: desactivado: ClearTextPassword
+8 duracion del bloqueo de cuenta: 15 minutos o mas: LockoutDuration 
+9 umbral de bloqueo de cuenta: 5 o menos intentos: LockoutBadCount
+10 restablecer el bloqueo de cuenta despues de: 15 o mas minutos: ResetLockoutCount
+
+20 'Firewall de Windows: Dominio: Estado de firewall' esté configurado en 'Activado (recomendado)': HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile: EnableFirewall 
+
+21 'Firewall de Windows: Dominio: Conexiones entrantes' esté establecido en 'Bloquear (predeterminado)' HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile: DefaultInboundAction
+
+22 'Activar seguridad basada en virtualización' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard: EnableVirtualizationBasedSecurity
+
+23 'Bloquear al usuario para que no muestre los detalles de la cuenta al iniciar sesión' esté configurado en 'Habilitado' HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System: BlockUserFromShowingAccountDetailsOnSignin
+
+24 Desactivar las notificaciones de aplicaciones en la pantalla de bloqueo' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System: DisableLockScreenAppNotifications
+
+25 'Requerir una contraseña cuando una computadora se active (con batería)' esté configurado en 'Habilitado' HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51: DCSettingIndex
+
+26 'Requerir una contraseña cuando una computadora se active (enchufada)' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51: ACSettingIndex
+
+27 'Evitar que los usuarios y las aplicaciones accedan a sitios web peligrosos' esté configurado en 'Habilitado: Bloquear'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows Defender\Windows Defender Exploit Guard\Network Protection: EnableNetworkProtection
+
+28 'Escanear todos los archivos y archivos adjuntos descargados' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableIOAVProtection
+
+29 'Desactivar la protección en tiempo real' esté configurado en 'Deshabilitado´  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableRealtimeMonitoring
+
+***30 'Activar monitoreo de comportamiento' esté configurado en 'Habilitado´  
+
+31 'Activar análisis de secuencias de comandos' esté establecido en 'Habilitado  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableScriptScanning 
+
+32 'Escanear unidades extraíbles' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan: DisableRemovableDriveScanning
+
+33 'Activar análisis de correo electrónico' esté configurado como 'Habilitado'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan: DisableEmailScanning
+
+34 'Configurar detección de aplicaciones potencialmente no deseadas' esté establecido en 'Habilitado: Bloquear'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender: PUAProtection
+
+35 'Desactivar Microsoft Defender Antivirus' esté configurado en 'Deshabilitado'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender: DisableAntiSpyware
+
+36 'Configurar SmartScreen de Windows Defender' esté establecido en 'Habilitado: Advertir y evitar la omisión'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System:EnableSmartScreen HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System: ShellSmartScreenLevel
+
+37 'Configurar SmartScreen de Windows Defender' esté establecido en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter: EnabledV9
+
+38 Prevenir la omisión de Windows Defender SmartScreen para sitios' esté configurado en 'Habilitado'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter: PreventOverride
+
+39 'Configurar actualizaciones automáticas' esté establecido en 'Habilitado´  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU: NoAutoUpdate
+
+40 'Configurar actualizaciones automáticas: día de instalación programada' esté establecido en '0 - Todos los días'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU: ScheduledInstallDay
+
+
+
