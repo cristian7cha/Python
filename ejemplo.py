@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk,random,subprocess,re,winreg
 from PIL import ImageTk, Image
+from matplotlib import pyplot as plt
 
 def politicas_1_10(variable_a_comparar,valor_a_comparar):
     try:
@@ -51,13 +52,11 @@ def politicas_20_40(ruta_registro, nombre_valor, valor_a_comparar):
                 else:
                     return False
             except FileNotFoundError:
-                print(f"El valor '{nombre_valor}' no se encontró en la clave del registro.")
                 return False
     except Exception as e:
-        print(f"Error al acceder al registro: {str(e)}")
         return False
 
-
+#esta funcion me muestra la informacion de cada politica al darle doble click
 def informacion(ev):
     newWindow = tk.Toplevel(ventana)
     current_item = tree.focus()
@@ -72,7 +71,6 @@ def Auditar():
     def Nrandom():
         r = random.randint(0, 1)
         if r == 1 : 
-            #icon = tk.PhotoImage(file="imagenes/chulo.png")
             icon ="✔"
         else: icon ="X"
         return icon
@@ -88,7 +86,7 @@ def Auditar():
         elif isinstance(recomen, (int, float, complex)):
             tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"✔"''),tags=(''+"✔"+''))
         else:
-            print(f"{lugar} La variable no es False ni un número.")
+            tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
             
     def funcion2(ruta,variable,valor_desedao,lugar):    
         recomen = politicas_20_40(ruta,variable,valor_desedao)
@@ -97,7 +95,7 @@ def Auditar():
         elif isinstance(recomen, (int, float, complex)):
             tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"✔"''),tags=(''+"✔"+''))
         else:
-            print(f"{lugar} La variable no es False ni un número.")
+            tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
     
     funcion("PasswordHistorySize",24,0)
     funcion("MaximumPasswordAge",365,1)
@@ -125,7 +123,7 @@ def Auditar():
     funcion2( r"SOFTWARE\Policies\Microsoft\windows Defender\Windows Defender Exploit Guard\Network Protection","EnableNetworkProtection",1,26)
     funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableIOAVProtection",1,27)
     funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableRealtimeMonitoring",0,28)
-    #funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection"," ",1,29)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableBehaviorMonitoring",1,29)
     funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableScriptScanning",1,30)
     funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Scan","DisableRemovableDriveScanning",1,31)
     funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Scan","DisableEmailScanning",1,32)
@@ -136,11 +134,38 @@ def Auditar():
     funcion2( r"SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter","PreventOverride",1,37)
     funcion2( r"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU","NoAutoUpdate",1,38)
     funcion2( r"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU","ScheduledInstallDay",0,39)
-    
-        
         
     tree.tag_configure('✔', background='#88dc65')
     tree.tag_configure('X', background='#f0394d')
+
+    contar_y_graficar()
+
+
+def contar_y_graficar():     
+    etiqueta_x = 0
+    etiqueta_check = 0
+
+    # Recorre los elementos del TreeView
+    for item in tree.get_children():
+        etiquetas = tree.item(item, 'tags')
+        if "X" in etiquetas:
+            etiqueta_x += 1
+        if "✔" in etiquetas:
+            etiqueta_check += 1
+
+    # Crear datos para el gráfico de torta
+    etiquetas = ['Etiqueta X', 'Etiqueta ✔']
+    valores = [etiqueta_x, etiqueta_check]
+    
+    # Especificar colores para las secciones del gráfico
+    colores = ['red', 'green']
+
+    # Crear un gráfico de torta con colores personalizados
+    plt.pie(valores, labels=etiquetas, autopct='%1.1f%%', colors=colores)
+    plt.title('Gráfico de Nivel de seguridad')
+
+    # Mostrar el gráfico
+    plt.show()
 
 
 
@@ -158,8 +183,10 @@ if __name__ == "__main__":
     logo = ImageTk.PhotoImage(Image.open('imagenes/logoL.png'))
     logol = Label(image=logo).pack(pady=10)
 
-    btn = Button(ventana, text='Auditar   ', command=Auditar, anchor="center", bitmap="hourglass", compound="right").pack(pady=30)
+    btn_auditar = Button(ventana, text='Auditar   ', command=Auditar, anchor="center", bitmap="hourglass", compound="right").pack(pady=30)
 
+    contar_button = tk.Button(ventana, text="Contar y Graficar", command=contar_y_graficar).pack()
+    
     listR=[]
 
     with open("archivos/recomendaciones.txt", 'r', encoding='utf-8') as procfile:

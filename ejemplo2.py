@@ -1,33 +1,34 @@
-#este codigo funciona para la 6 regla
-import winreg
+import subprocess
 
-def verificar_valor_registro(key_path, valor_deseado, valor_a_comparar):
-    try:
-        with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key_path) as key:
-            try:
-                value, _ = winreg.QueryValueEx(key, valor_deseado)
-                if value == valor_a_comparar:
-                    return True
-                else:
-                    return False
-            except FileNotFoundError:
-                print(f"El valor '{valor_deseado}' no se encontró en la clave del registro.")
-                return False
-    except PermissionError:
-        print("Se requieren permisos de administrador para acceder al registro.")
-        return False
-    except Exception as e:
-        print(f"Error al acceder al registro: {str(e)}")
-        return False
+# Ruta de la política que deseas verificar
+ruta_politica = "MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\DisableTaskMgr"
 
-# Ejemplo de uso:
-ruta_registro = r"SYSTEM\CurrentControlSet\Control\SAM"
-nombre_valor = "RelaxMinimumPasswordLengthLimits"
-valor_comparar = 1  # Reemplaza con el valor que deseas comparar
+# Comando para obtener el valor de la política
+comando = f'secedit /export /cfg c:\secedit.cfg && findstr /C:"{ruta_politica}" c:\secedit.cfg'
 
-resultado = verificar_valor_registro(ruta_registro, nombre_valor, valor_comparar)
-if resultado is not None:
-    if resultado:
-        print(f"El valor de la clave del registro es igual a {valor_comparar}.")
+# Ejecutar el comando y capturar la salida
+try:
+    salida = subprocess.check_output(comando, shell=True)
+    salida_decodificada = salida.decode('utf-8')
+    lineas = salida_decodificada.splitlines()
+    
+    # Verificar si la política existe en la salida
+    if lineas:
+        # Obtener el valor de la política
+        valor_politica = lineas[0].split('=')[1].strip()
+        
+        # Comparar el valor de la política con otro valor (por ejemplo, "1" para habilitado)
+        valor_comparacion = "1"  # Cambia esto según tu necesidad
+        
+        if valor_politica == valor_comparacion:
+            print(f'La política {ruta_politica} está configurada como {valor_politica}')
+        else:
+            print(f'La política {ruta_politica} está configurada como {valor_politica}, que es diferente de {valor_comparacion}')
     else:
-        print(f"El valor de la clave del registro no es igual a {valor_comparar}.")
+        print(f'La política {ruta_politica} no fue encontrada en la configuración.')
+
+except subprocess.CalledProcessError as e:
+    print(f'Error al ejecutar el comando: {e}')
+
+# Eliminar el archivo temporal secedit.cfg
+subprocess.run('del c:\secedit.cfg', shell=True)

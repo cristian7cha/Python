@@ -1,16 +1,17 @@
 from tkinter import * 
 from tkinter import ttk
-import tkinter as tk,random,subprocess,re
+import tkinter as tk,random,subprocess,re,winreg
 from PIL import ImageTk, Image
+from matplotlib import pyplot as plt
 
-def obtener_valor_historial_contraseñas(variable_a_comparar,valor_a_comparar):
+def politicas_1_10(variable_a_comparar,valor_a_comparar):
     try:
         # Ejecutar el comando secedit para consultar la configuración de seguridad y esto  guarda el archivo security.cfg en la carpeta designada
         resultado = subprocess.check_output("C:\\Windows\\System32\\secedit /export /cfg C:\\Windows\\Temp\\security.cfg", shell=True)
         
         # Leer el archivo de configuración exportado
         archivo_cfg = "C:\\Windows\\Temp\\security.cfg"
-        archivo_txt = "archivos/security.txt"
+        archivo_txt = "C:\\Windows\\Temp\\security.txt"
         
         with open(archivo_cfg, 'r') as entrada:
             with open(archivo_txt, 'w') as salida:
@@ -41,6 +42,21 @@ def obtener_valor_historial_contraseñas(variable_a_comparar,valor_a_comparar):
     except subprocess.CalledProcessError as e:
         return f"Error al obtener la configuración: {e}"
 
+def politicas_20_40(ruta_registro, nombre_valor, valor_a_comparar):
+    try:
+        with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, ruta_registro) as key:
+            try:
+                value, _ = winreg.QueryValueEx(key, nombre_valor)
+                if value == valor_a_comparar:
+                    return valor_a_comparar
+                else:
+                    return False
+            except FileNotFoundError:
+                return False
+    except Exception as e:
+        return False
+
+#esta funcion me muestra la informacion de cada politica al darle doble click
 def informacion(ev):
     newWindow = tk.Toplevel(ventana)
     current_item = tree.focus()
@@ -52,43 +68,97 @@ def informacion(ev):
     newWindow.mainloop()
 
 def Auditar():
-    def Nrandom():
-        r = random.randint(0, 1)
-        if r == 1 : 
-            #icon = tk.PhotoImage(file="imagenes/chulo.png")
-            icon ="✔"
-        else: icon ="X"
-        return icon
     
     #limpiar el arbol
     for item in tree.get_children():
         tree.delete(item)
     
-    def funcion(variable,numero,lugar):    
-        recomen = obtener_valor_historial_contraseñas(variable,numero)
+    def funcion(variable,valor_desedao,lugar):    
+        recomen = politicas_1_10(variable,valor_desedao)
         if recomen is False:
             tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
         elif isinstance(recomen, (int, float, complex)):
             tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"✔"''),tags=(''+"✔"+''))
         else:
-            print(f"{lugar} La variable no es False ni un número.")
+            tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
+            
+    def funcion2(ruta,variable,valor_desedao,lugar):    
+        recomen = politicas_20_40(ruta,variable,valor_desedao)
+        if recomen is False:
+            tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
+        elif isinstance(recomen, (int, float, complex)):
+            tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"✔"''),tags=(''+"✔"+''))
+        else:
+            tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
     
     funcion("PasswordHistorySize",24,0)
     funcion("MaximumPasswordAge",365,1)
     funcion("MinimumPasswordAge",1,2)
     funcion("MinimumPasswordLength",14,3)
     funcion("PasswordComplexity",1,4)
-    funcion("PasswordComplexity",1,5)
-    funcion("ClearTextPassword",1,6)
+    funcion2( r"SYSTEM\CurrentControlSet\Control\SAM","RelaxMinimumPasswordLengthLimits",1,5)
+    funcion("ClearTextPassword",0,6)
     funcion("LockoutDuration",15,7)
     funcion("LockoutBadCount",5,8)
     funcion("ResetLockoutCount",15,9)
+    
+    #aleatorio para las funciones no implmentadas    
+    for l in range(10,19):
+        tree.insert('', 'end', text=""+str(l)+"",values=(''+listR[l]+'',''"X"''),tags=(''+"X"+''))
+
+    funcion2( r"SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile","EnableFirewall",1,19)
+    funcion2( r"SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile","DefaultInboundAction",1,20)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows\DeviceGuard","EnableVirtualizationBasedSecurity",1,21)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows\System","BlockUserFromShowingAccountDetailsOnSignin",1,22)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows\System","DisableLockScreenAppNotifications",1,23)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51","DCSettingIndex",1,24)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51","ACSettingIndex",1,25)
+    funcion2( r"SOFTWARE\Policies\Microsoft\windows Defender\Windows Defender Exploit Guard\Network Protection","EnableNetworkProtection",1,26)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableIOAVProtection",0,27)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableRealtimeMonitoring",0,28)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableBehaviorMonitoring",0,29)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection","DisableOnAccessProtection",0,30)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Scan","DisableRemovableDriveScanning",0,31)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender\Scan","DisableEmailScanning",0,32)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender","PUAProtection",1,33)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows Defender","DisableAntiSpyware",0,34)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows\System","EnableSmartScreen",1,35)
+    funcion2( r"SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter","EnabledV9",1,36)
+    funcion2( r"SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter","PreventOverride",1,37)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU","NoAutoUpdate",0,38)
+    funcion2( r"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU","ScheduledInstallDay",0,39)
         
-    for l in range(10,40):
-        n=Nrandom()
-        tree.insert('', 'end', text=""+str(l)+"",values=(''+listR[l]+'',''+n+''),tags=(''+n+''))
     tree.tag_configure('✔', background='#88dc65')
     tree.tag_configure('X', background='#f0394d')
+
+    contar_y_graficar()
+
+
+def contar_y_graficar():     
+    etiqueta_x = 0
+    etiqueta_check = 0
+
+    # Recorre los elementos del TreeView
+    for item in tree.get_children():
+        etiquetas = tree.item(item, 'tags')
+        if "X" in etiquetas:
+            etiqueta_x += 1
+        if "✔" in etiquetas:
+            etiqueta_check += 1
+
+    # Crear datos para el gráfico de torta
+    etiquetas = ['Etiqueta X', 'Etiqueta ✔']
+    valores = [etiqueta_x, etiqueta_check]
+    
+    # Especificar colores para las secciones del gráfico
+    colores = ['red', 'green']
+
+    # Crear un gráfico de torta con colores personalizados
+    plt.pie(valores, labels=etiquetas, autopct='%1.1f%%', colors=colores)
+    plt.title('Gráfico de Nivel de seguridad')
+
+    # Mostrar el gráfico
+    plt.show()
 
 
 
@@ -106,8 +176,10 @@ if __name__ == "__main__":
     logo = ImageTk.PhotoImage(Image.open('imagenes/logoL.png'))
     logol = Label(image=logo).pack(pady=10)
 
-    btn = Button(ventana, text='Auditar   ', command=Auditar, anchor="center", bitmap="hourglass", compound="right").pack(pady=30)
+    btn_auditar = Button(ventana, text='Auditar   ', command=Auditar, anchor="center", bitmap="hourglass", compound="right").pack(pady=30)
 
+    contar_button = tk.Button(ventana, text="Contar y Graficar", command=contar_y_graficar).pack()
+    
     listR=[]
 
     with open("archivos/recomendaciones.txt", 'r', encoding='utf-8') as procfile:

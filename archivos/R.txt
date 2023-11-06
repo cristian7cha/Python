@@ -31,7 +31,7 @@
 
 29 'Desactivar la protección en tiempo real' esté configurado en 'Deshabilitado´  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableRealtimeMonitoring
 
-***30 'Activar monitoreo de comportamiento' esté configurado en 'Habilitado´  
+30 'Activar monitoreo de comportamiento' esté configurado en 'Habilitado´  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableBehaviorMonitoring
 
 31 'Activar análisis de secuencias de comandos' esté establecido en 'Habilitado  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableScriptScanning 
 
