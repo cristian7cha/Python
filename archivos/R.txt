@@ -11,6 +11,29 @@
 9 umbral de bloqueo de cuenta: 5 o menos intentos: LockoutBadCount
 10 restablecer el bloqueo de cuenta despues de: 15 o mas minutos: ResetLockoutCount
 
+
+
+
+11 'Cuentas: limitar el uso de contraseñas en blanco en cuentas locales solo para iniciar sesión en la consola' esté configurado en 'Habilitado' "SYSTEM\CurrentControlSet\Control\Lsa" LimitBlankPasswordUse
+
+12 'Firewall de Windows: Dominio: Conexiones salientes' esté configurado en 'Permitir (predeterminado)' "SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" DefaultOutboundAction
+
+13 'Evitar la recuperación de metadatos del dispositivo desde Internet' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Windows\Device Metadata" PreventDeviceMetadataFromNetwork
+
+14 'No permitir la copia de los métodos de entrada del usuario a la cuenta del sistema para iniciar sesión' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Control Panel\International" BlockUserInputMethodsForSignIn
+
+15 'No permitir reproducción automática para dispositivos sin volumen' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Windows\Explorer" NoAutoplayfornonVolume
+
+16 'Establecer el comportamiento predeterminado para la ejecución automática' esté configurado en 'Habilitado: no ejecutar ningún comando de ejecución automática' "SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" NoAutorun
+
+17 'Desactivar reproducción automática' esté configurado en 'Activado: todas las unidades' "SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" NoDriveTypeAutoRun
+
+18 'Evitar que los usuarios modifiquen la configuración' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Windows Defender Security Center\App and Browser protection" DisallowExploitProtectionOverride
+
+
+
+
+
 20 'Firewall de Windows: Dominio: Estado de firewall' esté configurado en 'Activado (recomendado)': HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile: EnableFirewall 
 
 21 'Firewall de Windows: Dominio: Conexiones entrantes' esté establecido en 'Bloquear (predeterminado)' HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile: DefaultInboundAction
