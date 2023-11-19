@@ -1,4 +1,4 @@
-from tkinter import * 
+from tkinter import *
 from tkinter import ttk
 import tkinter as tk,subprocess,re,winreg,threading
 from PIL import ImageTk, Image
@@ -9,11 +9,11 @@ def politicas_1_10(variable_a_comparar,valor_a_comparar):
     try:
         # Ejecutar el comando secedit para consultar la configuración de seguridad y esto  guarda el archivo security.cfg en la carpeta designada
         resultado = subprocess.check_output("C:\\Windows\\System32\\secedit /export /cfg C:\\Windows\\Temp\\security.cfg", shell=True)
-        
+
         # Leer el archivo de configuración exportado
         archivo_cfg = "C:\\Windows\\Temp\\security.cfg"
         archivo_txt = "C:\\Windows\\Temp\\security.txt"
-        
+
         with open(archivo_cfg, 'r') as entrada:
             with open(archivo_txt, 'w') as salida:
                 # Lee el contenido del archivo cfg y limpia los caracteres especiales
@@ -27,7 +27,7 @@ def politicas_1_10(variable_a_comparar,valor_a_comparar):
                         nombre_variable = palabras[0].strip()
                         valor_variable = palabras[1].strip()
                         salida.write(f"{nombre_variable} = {valor_variable}\n")
-                        
+
                         # Compara el valor con el valor_a_comparar
                         if nombre_variable == variable_a_comparar:
                             valor_variable = int(valor_variable)
@@ -76,12 +76,12 @@ def Auditar():
 
     # Función para ejecutar la auditoría en un hilo
     def ejecutar_auditoria(progress_bar):
-    
+
         #limpiar el arbol
         for item in tree.get_children():
             tree.delete(item)
-        
-        def funcion(variable,valor_desedao,lugar):    
+
+        def funcion(variable,valor_desedao,lugar):
             recomen = politicas_1_10(variable,valor_desedao)
             if recomen is False:
                 tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
@@ -89,8 +89,8 @@ def Auditar():
                 tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"✔"''),tags=(''+"✔"+''))
             else:
                 tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
-                
-        def funcion2(ruta,variable,valor_desedao,lugar):    
+
+        def funcion2(ruta,variable,valor_desedao,lugar):
             recomen = politicas_20_40(ruta,variable,valor_desedao)
             if recomen is False:
                 tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
@@ -98,7 +98,7 @@ def Auditar():
                 tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"✔"''),tags=(''+"✔"+''))
             else:
                 tree.insert('', 'end', text=""+str(lugar)+"",values=(''+listR[lugar]+'',''"X"''),tags=(''+"X"+''))
-        
+
         funcion("PasswordHistorySize",24,0)
         funcion("MaximumPasswordAge",365,1)
         funcion("MinimumPasswordAge",1,2)
@@ -109,7 +109,6 @@ def Auditar():
         funcion("LockoutDuration",15,7)
         funcion("LockoutBadCount",5,8)
         funcion("ResetLockoutCount",15,9)
-        
         funcion2( r"SYSTEM\CurrentControlSet\Control\Lsa","LimitBlankPasswordUse",1,10)
         funcion2( r"SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile","DefaultOutboundAction",0,11)
         funcion2( r"SOFTWARE\Policies\Microsoft\Windows\Device Metadata","PreventDeviceMetadataFromNetwork",1,12)
@@ -141,7 +140,7 @@ def Auditar():
         funcion2( r"SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter","PreventOverride",1,37)
         funcion2( r"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU","NoAutoUpdate",0,38)
         funcion2( r"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU","ScheduledInstallDay",0,39)
-            
+
         tree.tag_configure('✔', background='#88dc65')
         tree.tag_configure('X', background='#f0394d')
 
@@ -189,36 +188,36 @@ def contar_y_graficar():
     contar_y_graficar.canvas.get_tk_widget().pack(side='bottom', fill='both', expand=True)
 
 
-if __name__ == "__main__":
-    ventana = Tk()
-    ventana.title("SeeHarden")
-    ventana.resizable(0, 0)
-    ventana.iconbitmap("imagenes/Logo.ico")
-    ventana.geometry("720x800")
-    ventana.config(bg="white")
-    fondo = ImageTk.PhotoImage(Image.open('imagenes/fondo.jpg'))
-    background = Label(image=fondo)
-    background.place(x=0, y=0, relwidth=1, relheight=1)
-    logo = ImageTk.PhotoImage(Image.open('imagenes/logoL.png'))
-    logol = Label(image=logo).pack(pady=10)
+ventana = Tk()
+ventana.title("SeeHarden")
+ventana.resizable(0, 0)
+ventana.iconbitmap("imagenes/Logo.ico")
+ventana.geometry("720x800")
+ventana.config(bg="white")
+fondo = ImageTk.PhotoImage(Image.open('imagenes/fondo.jpg'))
+background = Label(image=fondo)
+background.place(x=0, y=0, relwidth=1, relheight=1)
+logo = ImageTk.PhotoImage(Image.open('imagenes/logoL.png'))
+logol = Label(image=logo).pack(pady=10)
 
-    listR = []
+listR = []
 
-    with open("archivos/recomendaciones.txt", 'r', encoding='utf-8') as procfile:
-        for line in procfile:
-            listR.append(line)
-
-
-    tree = ttk.Treeview(ventana, column=("col1", "col2"), show='headings', height=15)
-    tree.heading("col1", text="Política")
-    tree.column("col1", anchor=CENTER, width=500)
-    tree.heading("col2", text="Estado")
-    tree.column("col2", anchor=CENTER, width=50)
-    tree.bind("<Double-1>", informacion)
-    tree.pack()
-
-    btn_auditar = Button(ventana, text='Auditar', command=Auditar, anchor="center", bitmap="hourglass", compound="right")
-    btn_auditar.pack(pady=30)
+with open("archivos/recomendaciones.txt", 'r', encoding='utf-8') as procfile:
+    for line in procfile:
+        listR.append(line)
 
 
-    ventana.mainloop()
+tree = ttk.Treeview(ventana, column=("col1", "col2"), show='headings', height=15)
+tree.heading("col1", text="Política")
+tree.column("col1", anchor=CENTER, width=500)
+tree.heading("col2", text="Estado")
+tree.column("col2", anchor=CENTER, width=50)
+tree.bind("<Double-1>", informacion)
+tree.pack()
+
+btn_auditar = Button(ventana, text='Auditar', command=Auditar, anchor="center", bitmap="hourglass", compound="right")
+btn_auditar.pack(pady=30)
+
+
+ventana.mainloop()
+
