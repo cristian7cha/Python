@@ -1,10 +1,10 @@
+# este es ante de quitar un if en la funcion y funion2 ademas de cambios en la etiquetas
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk,subprocess,re,winreg,threading
 from PIL import ImageTk, Image
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from mpl_toolkits.mplot3d import Axes3D
 
 etiqueta_resultado = None
 barra_progreso_visible = False # Variable booleana para controlar la visibilidad de la barra de progreso
@@ -62,17 +62,62 @@ def politicas_20_40(ruta_registro, nombre_valor, valor_a_comparar):
     except Exception as e:
         return False
 
-#esta funcion me muestra la informacion de cada politica al darle doble click
 def informacion(ev):
-    newWindow = tk.Toplevel(ventana)
+    # Obtener el item seleccionado en el Treeview
     current_item = tree.focus()
     # Obtener el valor de la columna "col0" del item seleccionado
     numero_politica = tree.item(current_item, 'values')[0]
-    Label(newWindow).pack()
-    indexString = str(numero_politica)
-    imagenL = ImageTk.PhotoImage(Image.open('imagenes/' + indexString + '.jpg'))  # selecciono la imagen de acuerdo al número
-    Label(newWindow, image=imagenL).pack()
-    newWindow.mainloop()
+    # Obtener el valor de la columna "col1" del item seleccionado
+    politica_valor = tree.item(current_item, 'values')[1]
+
+    # Destruir el widget de Text existente, si existe
+    if hasattr(informacion, 'text_detalles'):
+        informacion.text_detalles.destroy()
+
+    # Crear un nuevo widget de Text en la pestaña de Detalles
+    informacion.text_detalles = tk.Text(
+        frame_detalles,
+        wrap="word",  # Opción para envolver palabras
+        font=("Arial", 10),
+        height=10,
+        width=80
+    )
+
+    # Verificar el estado de la política y configurar el fondo
+    if "X" in tree.item(current_item, 'tags'):
+        informacion.text_detalles.configure(bg='#f0394d')  # Fondo rojo para "X"
+        estado_politica = "Mal configurada"
+    elif "✔" in tree.item(current_item, 'tags'):
+        informacion.text_detalles.configure(bg='#88dc65')  # Fondo verde para "✔"
+        estado_politica = "Bien configurada"
+
+    # Insertar el contenido en el widget de Text
+    contenido_texto = f"{estado_politica}\n\n Política {numero_politica}: {politica_valor}\nJustificación: {obtener_mensaje_segun_indice(int(numero_politica))}"
+    informacion.text_detalles.tag_configure("center", justify='center')
+    informacion.text_detalles.insert(tk.END, contenido_texto, "center")
+
+    # Mostrar el widget de Text
+    informacion.text_detalles.pack(pady=10)
+
+
+def obtener_mensaje_segun_indice(indice):
+    # Puedes personalizar los mensajes según tus necesidades
+    mensajes = {
+        0: "Cuanto más tiempo utilice un usuario la misma contraseña, mayor será la posibilidad de que un atacante pueda determinarla mediante ataques de fuerza bruta. Además, cualquier cuenta que pueda haber sido comprometida seguirá siendo explotable mientras no se cambie la contraseña. Si se requieren cambios de contraseña, pero no se previene la reutilización de contraseñas, o si los usuarios reutilizan continuamente un pequeño número de contraseñas, la efectividad de una buena política de contraseñas se reduce enormemente.",
+        1: "Esta configuración de directiva define el tiempo que un usuario puede usar su contraseña antes de que caduque. Los valores de esta configuración de directiva van de 0 a 999 días. Si establece el valor 0, la contraseña no caducará nunca. Dado que los atacantes pueden descifrar contraseñas, cuanto más frecuentemente cambie la contraseña, menos oportunidades tendrá un atacante de utilizar una contraseña descifrada.",
+        2: "Los usuarios pueden tener contraseñas favoritas que les gusta usar porque son fáciles de recordar y creen que su elección de contraseña es segura contra el compromiso. Desafortunadamente, las contraseñas se ven comprometidas y si un atacante tiene como objetivo la cuenta de usuario de un individuo específico, con conocimiento previo de los datos sobre ese usuario, la reutilización de contraseñas antiguas puede causar una brecha de seguridad.",
+        3: "Los tipos de ataques a las contraseñas incluyen ataques de diccionario (que intentan utilizar palabras y frases comunes) y ataques de fuerza bruta (que prueban todas las combinaciones posibles de caracteres). Además, los atacantes a veces intentan obtener la base de datos de cuentas para poder utilizar herramientas que les permitan descubrir las cuentas y las contraseñas.",
+        4: "Las contraseñas que sólo contienen caracteres alfanuméricos son extremadamente fáciles de descubrir con varias herramientas disponibles públicamente.",
+        5: "Esta configuración permitirá la aplicación de contraseñas o frases de contraseña más largas y generalmente más seguras.",
+        6: "La activación de esta configuración de directiva permite que el sistema operativo almacene las contraseñas en un formato más débil que es mucho más susceptible de ser comprometido y debilita la seguridad del sistema.",
+        7: "Se puede crear una condición de denegación de servicio (DoS) si un atacante abusa del umbral de Bloqueo de cuenta e intenta iniciar sesión repetidamente con una cuenta específica. Una vez configurado el umbral de bloqueo de cuenta, la cuenta se bloqueará tras el número especificado de intentos fallidos.",
+        8: "Establecer un umbral de bloqueo de cuenta reduce la probabilidad de que un ataque de fuerza bruta de contraseña en línea tenga éxito. Establecer un umbral de bloqueo de cuentas demasiado bajo introduce el riesgo de que aumenten los bloqueos accidentales y/o de que un actor malintencionado bloquee cuentas intencionadamente.",
+        9: "Los usuarios pueden bloquearse accidentalmente de sus cuentas si escriben mal su contraseña varias veces. Para reducir la posibilidad de bloqueos accidentales, la opción Restablecer contador de bloqueos de cuenta después determina el número de minutos que deben transcurrir antes de que el contador que realiza el seguimiento de los intentos fallidos de inicio de sesión y desencadena bloqueos se restablezca a 0.",
+        10: "",
+    }
+
+    return mensajes.get(indice, "Mensaje predeterminado")
+
 
 def mostrar_barra_progreso():
     global progress
@@ -88,7 +133,6 @@ def mostrar_barra_progreso():
     progress.pack(pady=(0,40), side=BOTTOM, in_=frame_principal)
     # Iniciar la barra de progreso
     progress.start()
-
 
 def Auditar():
     # Crear una barra de progreso
@@ -205,10 +249,10 @@ def contar_y_graficar():
         etiquetas = tree.item(item, 'tags')
         if "X" in etiquetas:
             etiqueta_x += 1
-            etiquetas_mal.append(i + 1)  # Sumar 1 para obtener el número de etiqueta
+            etiquetas_mal.append(i)
         if "✔" in etiquetas:
             etiqueta_check += 1
-            etiquetas_bien.append(i + 1)  # Sumar 1 para obtener el número de etiqueta
+            etiquetas_bien.append(i)
 
     # Crear datos para el gráfico de torta
     etiquetas = ['Mal configuradas', 'Bien configuradas']
@@ -239,9 +283,9 @@ def contar_y_graficar():
     else:
         resultado_texto = (
             f"{porcentaje_correcto:.2f}% de las configuraciones están bien. "
-            f"{porcentaje_incorrecto:.2f}% están mal configuradas.\n"
-            f"Cantidad bien: {etiqueta_check}, Etiquetas bien: {etiquetas_bien}\n"
-            f"Cantidad mal: {etiqueta_x}, Etiquetas mal: {etiquetas_mal}"
+            f"{porcentaje_incorrecto:.2f}% están mal configuradas.\n\n"
+            f"Cantidad que estan bien configuradas: {etiqueta_check}.\n\n"
+            f"Cantidad que estan mal configuradas: {etiqueta_x}.\n Cuales configuraciones estan mal:\n {etiquetas_mal}"
         )
 
     etiqueta_resultado = tk.Label(frame_grafico, text=resultado_texto, font=("Arial", 12))  # Ajusta el tamaño de la fuente
@@ -321,7 +365,7 @@ with open("archivos/recomendaciones.txt", 'r', encoding='utf-8') as procfile:
     for line in procfile:
         lista_recomendaciones.append(line)
 # Crear el Treeview con encabezados y columnas
-tree = ttk.Treeview(frame_detalles, column=("col0", "col1", "col2"), show='headings', height=20)
+tree = ttk.Treeview(frame_detalles, column=("col0", "col1", "col2"), show='headings', height=15)
 tree.heading("col0", text="No.")
 tree.column("col0", anchor=tk.CENTER, width=30)
 tree.heading("col1", text="Política")
@@ -337,7 +381,6 @@ scrollbar_x.pack(side="bottom", fill="x")
 tree.configure(yscrollcommand=scrollbar_y.set, xscrollcommand=scrollbar_x.set)
 tree.bind("<Double-1>", informacion)
 tree.pack()
-
 
 
 # Pestaña 3: Gráfico
