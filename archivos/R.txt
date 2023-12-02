@@ -1,80 +1,78 @@
-1 exigir historial de contraseñas: 24 o mas contraseñas: PasswordHistorySize
-2 vigencia maxima de la contraseña: 365 o menos pero no 0 dias: MaximumPasswordAge
-3 vigencia minima de la contraseña: 1 o mas dias: MaximumPasswordAge
-4 longitud miinima de contraseña: 14 o mas caracteres: MinimumPasswordLength
-5 la contraseña debe cumplir los requisitos de complejidad: habilitado: PasswordComplexity
+configuracion del equipo \ configuracion de windows \ configuracion de seguridad \ Directivas de cuenta \ Directiva de contraseñas \
+0 exigir historial de contraseñas: 24 o mas contraseñas: PasswordHistorySize
+1 vigencia maxima de la contraseña: 365 o menos pero no 0 dias: MaximumPasswordAge
+2 vigencia minima de la contraseña: 1 o mas dias: MinimumPasswordAge 
+3 longitud minima de contraseña: 14 o mas caracteres: MinimumPasswordLength
+4 la contraseña debe cumplir los requisitos de complejidad: habilitado: PasswordComplexity
+5 reducir los limites de longitud minima de la contraseña: habilitado:  "SYSTEM\CurrentControlSet\Control\SAM" RelaxMinimumPasswordLengthLimits
+6 almacenar contraseñas con cifrado reversible: deshabilitada: ClearTextPassword
 
-6 reducir los limites de longitud minima de la contraseña: habilitado:  "SYSTEM\CurrentControlSet\Control\SAM" RelaxMinimumPasswordLengthLimits
+configuracion del equipo \ configuracion de windows \ configuracion de seguridad \ Directivas de cuenta \ Directiva de bloqueo de cuenta \
+7 duracion del bloqueo de cuenta: 15 minutos o mas: LockoutDuration 
+8 umbral de bloqueo de cuenta: 5 o menos intentos: LockoutBadCount
+9 restablecer el bloqueo de cuenta despues de: 15 o mas minutos: ResetLockoutCount
 
-7 almacenar contraseñas con cifrado reversible: desactivado: ClearTextPassword
-8 duracion del bloqueo de cuenta: 15 minutos o mas: LockoutDuration 
-9 umbral de bloqueo de cuenta: 5 o menos intentos: LockoutBadCount
-10 restablecer el bloqueo de cuenta despues de: 15 o mas minutos: ResetLockoutCount
+configuracion del equipo \ configuracion de windows \ configuracion de seguridad \ Directivas locales \ opciones de seguridad \
+10 'Cuentas: limitar el uso de cuentas locales con contraseña en blanco solo para iniciar sesión en la consola' esté configurado en 'Habilitado' "SYSTEM\CurrentControlSet\Control\Lsa" LimitBlankPasswordUse
 
+configuracion del equipo \ configuracion de windows \ Windows Defender firewall con seguridad avanzada \  Windows Defender firewall con seguridad avanzada-objeto directiva de grupo local \ (click derecho) propiedades - perfilde dominio - estado
+11 'Firewall de Windows: Dominio: Estado de firewall' esté configurado en 'Activado (recomendado)': SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile  EnableFirewall 
+12 'Firewall de Windows: Dominio: Conexiones entrantes' esté establecido en 'Bloquear (predeterminado)'   SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile  DefaultInboundAction
+13 'Firewall de Windows: Dominio: Conexiones salientes' esté configurado en 'Permitir (predeterminado)' SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile  DefaultOutboundAction
+14 'Firewall de Windows: Dominio: Registro: Registrar paquetes perdidos' está establecido en 'Sí' (Automatizado)'  SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging   LogDroppedPackets
 
+configuracion del equipo \ plantillas administrativas \ sistema \ Device Guard \
+15 'Activar seguridad basada en virtualización' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard: EnableVirtualizationBasedSecurity
 
+configuracion del equipo \ plantillas administrativas \ sistema \ instalacion de dispositivos \ 
+16 'Impedir la recuperación de metadatos del dispositivo desde Internet' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Windows\Device Metadata" PreventDeviceMetadataFromNetwork
 
-11 'Cuentas: limitar el uso de contraseñas en blanco en cuentas locales solo para iniciar sesión en la consola' esté configurado en 'Habilitado' "SYSTEM\CurrentControlSet\Control\Lsa" LimitBlankPasswordUse
+Configuración del equipo \ Plantillas administrativas \ Sistema \ Servicios de configuración regional \
+17 'No permitir copiar los metadatos de entrada del usuario a la cuenta del sistema para iniciar sesión' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Control Panel\International" BlockUserInputMethodsForSignIn
 
-12 'Firewall de Windows: Dominio: Conexiones salientes' esté configurado en 'Permitir (predeterminado)' "SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" DefaultOutboundAction
+Configuración del equipo \ Plantillas administrativas \ Sistema \ Inicio de sesión \
+18 'Evitar que el usuario muestre detalles de la cuenta al iniciar sesión' esté configurado en 'Habilitado'  SOFTWARE\Policies\Microsoft\Windows\System: BlockUserFromShowingAccountDetailsOnSignin
+19 'Desactivar las notificaciones de aplicaciones en la pantalla de bloqueo' esté configurado en 'Habilitado'   SOFTWARE\Policies\Microsoft\Windows\System: DisableLockScreenAppNotifications
 
-13 'Evitar la recuperación de metadatos del dispositivo desde Internet' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Windows\Device Metadata" PreventDeviceMetadataFromNetwork
+Configuración del equipo \ Plantillas administrativas \ Sistema \ Administracion de energía \ Configuración de suspensión \
+20 'Solicitar una contraseña al activar el equipo (con batería)' esté configurado en 'Habilitado'   SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51: DCSettingIndex
+21 'Solicitar una contraseña al activar el equipo (enchufada)' esté configurado en 'Habilitado'    SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51: ACSettingIndex
 
-14 'No permitir la copia de los métodos de entrada del usuario a la cuenta del sistema para iniciar sesión' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Control Panel\International" BlockUserInputMethodsForSignIn
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ Directivas de reproducción automática \
+22 'Deshabilitar reproducción automática para dispositivos que no son de volumen' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Windows\Explorer" NoAutoplayfornonVolume
+23 'Establecer el comportamiento predeterminado para la ejecución automática' esté configurado en 'Habilitado: no ejecutar ningún comando de ejecución automática' "SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" NoAutorun
+24 'Desactivar reproducción automática' esté configurado en 'Activado: todas las unidades' "SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" NoDriveTypeAutoRun
 
-15 'No permitir reproducción automática para dispositivos sin volumen' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Windows\Explorer" NoAutoplayfornonVolume
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ Antivirus de microsoft defender \ Proteccion contra vulneravilidades de seguridad de microsoft defender \ Proteion de red \
+25 'Impedir que los usuarios y las aplicaciones tengan acceso a sitios web peligrosos' esté configurado en 'Habilitado: Bloquear'  SOFTWARE\Policies\Microsoft\windows Defender\Windows Defender Exploit Guard\Network Protection: EnableNetworkProtection
 
-16 'Establecer el comportamiento predeterminado para la ejecución automática' esté configurado en 'Habilitado: no ejecutar ningún comando de ejecución automática' "SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" NoAutorun
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ Antivirus de microsoft defender \ Proteccion en tiempo real \ 
+26 'Examinar todos los archivos y datos adjuntos descargados' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableIOAVProtection
+27 'Desactivar la protección en tiempo real' esté configurado en 'Deshabilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableRealtimeMonitoring
+28 'Activar supervicion de comportamiento' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableBehaviorMonitoring
 
-17 'Desactivar reproducción automática' esté configurado en 'Activado: todas las unidades' "SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" NoDriveTypeAutoRun
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ Antivirus de microsoft defender \ Deteccion
+29 'Examinar unidades extraíbles' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan: DisableRemovableDriveScanning
+30 'Activar examen de correo electrónico' esté configurado como 'Habilitado'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan: DisableEmailScanning
 
-18 'Evitar que los usuarios modifiquen la configuración' esté configurado en 'Habilitado' "SOFTWARE\Policies\Microsoft\Windows Defender Security Center\App and Browser protection" DisallowExploitProtectionOverride
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ Antivirus de microsoft defender \
+31 'Configurar detección de aplicaciones potencialmente no deseadas' esté establecido en 'Habilitado: Bloquear'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender: PUAProtection
+32 'Desactivar Antivirus de Microsoft Defender' esté configurado en 'Deshabilitado'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender: DisableAntiSpyware
 
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ Proteccion de aplicaciones de Microsoft defender \ 
+33 'Permitir el acceso a la camara y al microfono en proteccion de aplicaciones de microsoft defender' esté configurado en 'Desactivado'    SOFTWARE\Policies\Microsoft\AppHVSI   AllowCameraMicrophoneRedirection
+34 'Activar proteccion de aplicaciones de microsoft defender en modo administrado' esté configurado en "Habilitado: 1"      SOFTWARE\Policies\Microsoft\AppHVSI     AllowAppHVSI_ProviderSet
 
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ SmartScreen de Windows Defender \ Explorador \ 
+35 'Configurar SmartScreen de Windows Defender' esté establecido en 'Habilitado: Advertir y evitar la omisión'  SOFTWARE\Policies\Microsoft\Windows\System:EnableSmartScreen 
+														  SOFTWARE\Policies\Microsoft\Windows\System: ShellSmartScreenLevel
 
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ SmartScreen de Windows Defender \ Microsoft Edge \ 
+36 'Configurar SmartScreen de Windows Defender' esté establecido en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter: EnabledV9
+37 'Impedir la omisión de los avisos de SmartScreen de Windows Defender para sitios' esté configurado en 'Habilitado'   SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter: PreventOverride
 
-
-20 'Firewall de Windows: Dominio: Estado de firewall' esté configurado en 'Activado (recomendado)': HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile: EnableFirewall 
-
-21 'Firewall de Windows: Dominio: Conexiones entrantes' esté establecido en 'Bloquear (predeterminado)' HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile: DefaultInboundAction
-
-22 'Activar seguridad basada en virtualización' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard: EnableVirtualizationBasedSecurity
-
-23 'Bloquear al usuario para que no muestre los detalles de la cuenta al iniciar sesión' esté configurado en 'Habilitado' HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System: BlockUserFromShowingAccountDetailsOnSignin
-
-24 Desactivar las notificaciones de aplicaciones en la pantalla de bloqueo' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System: DisableLockScreenAppNotifications
-
-25 'Requerir una contraseña cuando una computadora se active (con batería)' esté configurado en 'Habilitado' HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51: DCSettingIndex
-
-26 'Requerir una contraseña cuando una computadora se active (enchufada)' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51: ACSettingIndex
-
-27 'Evitar que los usuarios y las aplicaciones accedan a sitios web peligrosos' esté configurado en 'Habilitado: Bloquear'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows Defender\Windows Defender Exploit Guard\Network Protection: EnableNetworkProtection
-
-28 'Escanear todos los archivos y archivos adjuntos descargados' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableIOAVProtection
-
-29 'Desactivar la protección en tiempo real' esté configurado en 'Deshabilitado´  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableRealtimeMonitoring
-
-30 'Activar monitoreo de comportamiento' esté configurado en 'Habilitado´  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableBehaviorMonitoring
-
-31 'Activar análisis de secuencias de comandos' esté establecido en 'Habilitado  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection: DisableScriptScanning 
-
-32 'Escanear unidades extraíbles' esté configurado en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan: DisableRemovableDriveScanning
-
-33 'Activar análisis de correo electrónico' esté configurado como 'Habilitado'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan: DisableEmailScanning
-
-34 'Configurar detección de aplicaciones potencialmente no deseadas' esté establecido en 'Habilitado: Bloquear'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender: PUAProtection
-
-35 'Desactivar Microsoft Defender Antivirus' esté configurado en 'Deshabilitado'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender: DisableAntiSpyware
-
-36 'Configurar SmartScreen de Windows Defender' esté establecido en 'Habilitado: Advertir y evitar la omisión'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System:EnableSmartScreen HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System: ShellSmartScreenLevel
-
-37 'Configurar SmartScreen de Windows Defender' esté establecido en 'Habilitado'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter: EnabledV9
-
-38 Prevenir la omisión de Windows Defender SmartScreen para sitios' esté configurado en 'Habilitado'   HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter: PreventOverride
-
-39 'Configurar actualizaciones automáticas' esté establecido en 'Habilitado´  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU: NoAutoUpdate
-
-40 'Configurar actualizaciones automáticas: día de instalación programada' esté establecido en '0 - Todos los días'  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU: ScheduledInstallDay
-
+Configuración del equipo \ Plantillas administrativas \ Componentes de Windows \ Windows update \ 
+38 'Configurar actualizaciones automáticas' esté establecido en 'Habilitado´  HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU: NoAutoUpdate
+39 'Configurar actualizaciones automáticas: día de instalación programado' esté establecido en '0 - Todos los días'  SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU: ScheduledInstallDay
 
 
