@@ -11,7 +11,7 @@ progress = None
 
 def politicas_1_10(variable_a_comparar,valor_a_comparar):
     try:
-        # Ejecutar el comando secedit para consultar la configuración de seguridad y esto  guarda el archivo security.cfg en la carpeta designada
+        # Ejecutar el comando secedit para consultar la configuración de seguridad y guarda el archivo security.cfg en la carpeta designada
         resultado = subprocess.check_output("C:\\Windows\\System32\\secedit /export /cfg C:\\Windows\\Temp\\security.cfg", shell=True)
 
         # Leer el archivo de configuración exportado
@@ -96,8 +96,7 @@ def informacion(ev):
     informacion.text_detalles.insert(tk.END, contenido_texto, "center")
 
     # Mostrar el widget de Text
-    informacion.text_detalles.pack(pady=10)
-
+    informacion.text_detalles.pack(pady=20)
 
 def obtener_mensaje_segun_indice(indice):
     # Puedes personalizar los mensajes según tus necesidades
@@ -116,7 +115,6 @@ def obtener_mensaje_segun_indice(indice):
     }
 
     return mensajes.get(indice, "Mensaje predeterminado")
-
 
 def mostrar_barra_progreso():
     global progress
@@ -276,10 +274,10 @@ def contar_y_graficar():
         resultado_texto = "¡Todas las 40 estan configuradas incorrectamente!"
     else:
         resultado_texto = (
-            f"{porcentaje_correcto:.2f}% de las configuraciones están bien. "
-            f"{porcentaje_incorrecto:.2f}% están mal configuradas.\n\n"
-            f"Cantidad de las 40 que estan configuradas correctamente: {etiqueta_check},\n\n"
-            f"Cantidad de las 40 que estan configuradas incorrectamente: {etiqueta_x},\n Cuales configuraciones estan incorrectas:\n {etiquetas_mal}"
+            f"{porcentaje_correcto:.2f}% de las recomendaciones están correctamente configuradas y \n"
+            f"{porcentaje_incorrecto:.2f}% están incorrectamente configuradas.\n\n"
+            f"De las 40 recomendaciones, {etiqueta_check} estan configuradas correctamente.\n\n"
+            f"De las 40 recomendaciones, {etiqueta_x} estan configuradas incorrectamente.\n Lista de las reomendaciones que estan configuradas incorrectamente:\n {etiquetas_mal}"
         )
 
     etiqueta_resultado = tk.Label(frame_grafico, text=resultado_texto, font=("Arial", 12))  # Ajusta el tamaño de la fuente
@@ -287,9 +285,9 @@ def contar_y_graficar():
 
 def crear_boton_auditar():
     # Cargar la imagen del botón (ajusta la ruta según la ubicación de tu imagen)
-    imagen_path = "imagenes/auditar.png"
+    imagen_path = "auditar.png"
     imagen = Image.open(imagen_path)
-    imagen = imagen.resize((150, 150))
+    imagen = imagen.resize((300, 75))
     imagen_tk = ImageTk.PhotoImage(imagen)
 
     # Crear el botón con la imagen como fondo
@@ -317,7 +315,7 @@ def crear_boton_auditar():
 ventana = Tk()
 ventana.title("SeeHarden")
 ventana.resizable(0, 0)
-ventana.iconbitmap("imagenes/Logo.ico")
+ventana.iconbitmap("Logo.ico")
 ventana.geometry("720x640")
 ventana.config(bg="white")
 
@@ -329,11 +327,11 @@ frame_principal = ttk.Frame(notebook)
 frame_principal.pack(fill="both", expand=True)
 notebook.add(frame_principal, text="Principal")
 
-fondo = ImageTk.PhotoImage(Image.open('imagenes/fondo.jpg'))
+fondo = ImageTk.PhotoImage(Image.open('fondo.jpg'))
 background = Label(frame_principal, image=fondo)
 background.place(x=0, y=0, relwidth=1, relheight=1)
 
-logo = ImageTk.PhotoImage(Image.open('imagenes/logoL.png'))
+logo = ImageTk.PhotoImage(Image.open('logoL.png'))
 logol = Label(frame_principal, image=logo).pack(pady=10)
 # Label on la descripcion del programa
 descripcion_predeterminada = "SeeHarden es una herramienta que te permite dar seguimiento de la corecta configuracion de tu sistema operativo windows 10, al presioanr el boton esta mostrara el listado de las configuraciones, en las cuales se detallara si está bien configurada o no según el estándar dado por la organización para el internet seguro CIS."
@@ -355,7 +353,7 @@ notebook.add(frame_detalles, text="Detalles")
 
 # Crear el Treeview en la pestaña de Detalles
 lista_recomendaciones = []
-with open("archivos/recomendaciones.txt", 'r', encoding='utf-8') as procfile:
+with open("recomendaciones.txt", 'r', encoding='utf-8') as procfile:
     for line in procfile:
         lista_recomendaciones.append(line)
 # Crear el Treeview con encabezados y columnas
@@ -386,3 +384,4 @@ notebook.tab(1, state="hidden")
 notebook.tab(2, state="hidden")
 notebook.pack(fill="both", expand=True)
 ventana.mainloop()
+
