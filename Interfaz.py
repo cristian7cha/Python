@@ -315,7 +315,6 @@ def crear_boton_auditar():
 ventana = Tk()
 ventana.title("SeeHarden")
 ventana.resizable(0, 0)
-ventana.iconbitmap("Logo.ico")
 ventana.geometry("720x640")
 ventana.config(bg="white")
 
